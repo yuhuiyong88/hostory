@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.box{
+			width: 300px;
+			height: 300px;
+			background: pink;
+			position: absolute;
+			bottom: 20px;
+			left: 0;
+			transition: left 2s;
+		}
+		.active{
+			left:100%;
+		}
+		
+	</style>
+</head>
+<body>
+	<ul>
+		<li><a href="#/home">home</a></li>
+		<li><a href="#/list">list</a></li>
+		<li><a href="#/detail">detail</a></li>
+	</ul>
+	<div class="box"></div>
+	<button class="right">right</button>
+	<button class="left">left</button>
+</body>
+<script src="jquery1.7.js"></script>
+<script>
+	window.onhashchange=function(){
+		console.log(location.hash)
+		if(location.hash.indexOf("right")>-1){
+			$(".box").addClass("active")
+		}else{
+			$(".box").removeClass("active")
+		}
+	}
+	$(".right").on("click",function(){
+		history.pushState("",null,location.hash+'?right')
+		$(".box").addClass("active")
+	})
+	$(".left").on("click",function(){
+		if(location.hash.indexOf("right")>-1){
+
+			//history.replaceState()
+			$(".box").removeClass("active")
+		}else{
+			$(".box").removeClass("active")
+		}
+	})
+
+	 window.onpopstate = function(e) {
+        console.log(e);
+    };
+</script>
+</html>
